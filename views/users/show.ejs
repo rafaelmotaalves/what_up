@@ -1,23 +1,22 @@
 <% include ../partials/header %>
 
 
-	<div >
+	<div  style="height: 100vh">
 
-		<div class="row">
+		<div class="row" style="height: 100vh">
 			<div class="col-lg-4">
 				<div class="jumbotron" style="height: 100%; background:#5cb85c!important">
 					<div class="row" >
-						<div class="col-lg-1"></div>
 						
-						<div  class="col-lg-4" style="background-image: url(<%=user.img%>); background-position: center ; background-size: cover;margin:30px%;border-radius: 50%">
+						<div  class="col-lg-3" style="background-image: url(<%=user.img%>); background-position: center ; background-size: cover;margin:30px%;border-radius: 50%">
 							
 
 						</div>
 
-						<div class="col-lg-5">
+						<div class="col-lg-9">
 							
 							<div>
-								<h1 class="display-2"><%=user.username%></h1>
+								<h1 class="display-4"><%=user.username%></h1>
 								<div class="lead">
 								    <%= user.totalScore %> points
 								</div>

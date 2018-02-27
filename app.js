@@ -9,6 +9,9 @@ var express               = require('express'),
     passportLocalMongoose = require("passport-local-mongoose"),
 	bodyParser            = require('body-parser');
 
+
+require('dotenv').config();
+
 // requiring routes
 
 var indexRoutes = require("./routes/index.js");
@@ -42,7 +45,7 @@ app.locals.moment = require('moment');
 // passport configuration
 
 app.use(require("express-session")({
-	secret: "dsfmskrmeamsafsde",
+	secret: process.env.PASSPORT_SECRET,
 	resave: false,
 	saveUninitialized: false
 }));
