@@ -1,0 +1,145 @@
+<% include ../partials/header %> 
+
+<div class="container">
+
+
+	<% if( currentUser) { %> 
+
+		
+	<div id = "postForm">
+		
+		<form action="/posts" method="POST">
+			<div class="form-group">
+		    	<textarea id = "postText" class = "form-control" rows = 5 name = "post[text]" placeholder="What are you thinking about?"></textarea>
+			</div>
+		<button class="btn btn-success btn-block" >
+			<i class="icon edit"></i> Add new thought</button>
+		</form>
+
+	</div>
+
+
+	<% } %>
+
+	<div class="container">
+
+	<% posts.forEach(function(post){ %>
+
+		<div class="card" style="margin: 2%">
+
+			<div class="row">
+
+				<div class="col-lg-4" style="background-image: url(<%= post.author.userImage %>); background-position: center; background-size: cover">
+				</div>					
+
+				<div class="col-lg-8">
+					
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg-8 card-title">
+								<a style = "color:black; text-decoration:none;" href="/users/<%=post.author.id%>"><strong><%=post.author.userName%> says...</strong></a>
+							</div>
+							<div class="col-lg-3  mb-2 text-muted">
+								<%=moment(post.createdAt).fromNow()%>
+
+								<div class="dropdown" style="margin-left:25px;display: inline;">
+									<button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<% if(currentUser && currentUser._id.equals(post.author.id)){ %>
+											<a class="dropdown-item" href="#">Edit</a>
+											<a class="dropdown-item" href="#">Delete</a>
+										<% } else { %>
+											<a class="dropdown-item" href="/">Report</a>
+									 	<% } %>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-text">
+
+
+							<% if(post.text.length > 500) { %>
+								<%= post.text.substr(0,500) %>...
+								<a href="/posts/<%=post._id%>">read more.</a>
+							<% } else { %>
+								<%= post.text %>
+							<% } %>
+ 						</div>
+
+							<div class="row">
+								<div class="col-lg-9">					
+									<div class="btn-group">
+										<% if(currentUser && post.upvotes.indexOf(currentUser._id) === -1){ %>
+
+											<form action="/posts/<%=post._id%>/vote/up?_method=PUT" method = "POST">
+												<button class="btn btn-success">
+													<i class="fas fa-arrow-up"></i>
+												</button>
+											</form>
+
+										<% } else { %>
+
+
+											<form action="/posts/<%=post._id%>/vote/up?_method=PUT" method = "POST">
+												<button class="btn btn-outline-success ">
+													<i class="fas fa-arrow-up"></i>
+												</button>
+											</form>
+
+
+										<% } %>
+
+										<% if(currentUser && post.downvotes.indexOf(currentUser._id) === -1) { %>
+
+
+											<form action="/posts/<%=post._id%>/vote/down?_method=PUT" method = "POST">
+												<button class="btn btn-success">
+													<i class="fas fa-arrow-down"></i>
+												</button>  
+											</form>
+
+										<% } else { %>
+
+											<form action="/posts/<%=post._id%>/vote/down?_method=PUT" method = "POST">
+												<button class="btn btn-outline-success">
+													<i class="fas fa-arrow-down"></i>
+												</button>  
+											</form>
+
+										<% } %>
+
+
+										<button type="button" class="btn btn-outline-dark disabled"><%= post.upvotes.length - post.downvotes.length %></button>
+				
+											
+
+									</div>
+								</div>
+								<div class="col-lg-3">
+
+									<a href = "/posts/<%=post._id%>" class="btn btn-info" >
+										<i class="far fa-comment"></i>
+									</a>
+									<button class="btn btn-outline-dark disabled">
+									    <strong><%= post.comments.length %></strong>
+									</button>
+									
+								</div>				
+							</div>
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<% }); %>
+	</div>
+
+</div>
+
+
+
+<% include ../partials/footer %>

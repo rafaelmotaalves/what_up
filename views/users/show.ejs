@@ -1,0 +1,146 @@
+<% include ../partials/header %>
+
+
+	<div >
+
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="jumbotron" style="height: 100%; background:#5cb85c!important">
+					<div class="row" >
+						<div class="col-lg-1"></div>
+						
+						<div  class="col-lg-4" style="background-image: url(<%=user.img%>); background-position: center ; background-size: cover;margin:30px%;border-radius: 50%">
+							
+
+						</div>
+
+						<div class="col-lg-5">
+							
+							<div>
+								<h1 class="display-2"><%=user.username%></h1>
+								<div class="lead">
+								    <%= user.totalScore %> points
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>					
+			<div class="col-lg-8">
+				
+				<% posts.forEach(function(post){ %>
+
+				<div class="card" style="margin: 2%">
+
+					<div class="row">
+
+						
+
+						<div class="col-lg-12">
+							
+							<div class="card-body">
+								<div class="row">
+									<div class="col-lg-10 card-title">
+										<strong><%=post.author.userName%> says...</strong>
+									</div>
+									<div class="col-lg-2  mb-2 text-muted">
+										<%=moment(post.createdAt).fromNow()%>
+									</div>
+								</div>
+								<div class="card-text">
+
+
+									<% if(post.text.length > 500) { %>
+										<%= post.text.substr(0,500) %>...
+										<a href="/posts/<%=post._id%>">read more.</a>
+									<% } else { %>
+										<%= post.text %>
+									<% } %>
+		 						</div>
+
+									<div class="row">
+										<div class="col-lg-10">					
+											<div class="btn-group">
+												<% if(currentUser && post.upvotes.indexOf(currentUser._id) === -1){ %>
+
+													<form action="/posts/<%=post._id%>/vote/up?_method=PUT" method = "POST">
+														<button class="btn btn-success">
+															<i class="fas fa-arrow-up"></i>
+														</button>
+													</form>
+
+												<% } else { %>
+
+
+													<form action="/posts/<%=post._id%>/vote/up?_method=PUT" method = "POST">
+														<button class="btn btn-outline-success ">
+															<i class="fas fa-arrow-up"></i>
+														</button>
+													</form>
+
+
+												<% } %>
+
+												<% if(currentUser && post.downvotes.indexOf(currentUser._id) === -1) { %>
+
+
+													<form action="/posts/<%=post._id%>/vote/down?_method=PUT" method = "POST">
+														<button class="btn btn-success">
+															<i class="fas fa-arrow-down"></i>
+														</button>  
+													</form>
+
+												<% } else { %>
+
+													<form action="/posts/<%=post._id%>/vote/down?_method=PUT" method = "POST">
+														<button class="btn btn-outline-success">
+															<i class="fas fa-arrow-down"></i>
+														</button>  
+													</form>
+
+												<% } %>
+
+
+												<button type="button" class="btn btn-outline-dark disabled"><%= post.upvotes.length - post.downvotes.length %></button>
+						
+													
+
+											</div>
+										</div>
+										<div class="col-lg-2">
+
+											<a href = "/posts/<%=post._id%>" class="btn btn-info" >
+												<i class="far fa-comment"></i>
+											</a>
+											<button class="btn btn-outline-dark disabled">
+											    <strong><%= post.comments.length %></strong>
+											</button>
+											
+										</div>				
+									</div>
+
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			<% }); %>
+			</div>
+		</div>
+
+
+	</div>
+
+		
+	</div>
+
+
+
+
+
+
+<% include ../partials/footer %>

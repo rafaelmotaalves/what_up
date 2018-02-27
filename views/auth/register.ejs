@@ -1,0 +1,40 @@
+<% include ../partials/header %>
+
+<div class="container" style="width: 30%; margin: 100px auto;" >
+
+    <h1 style="text-align:center;">Sign Up</h1>
+
+
+  <form action="/register" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+    <div class="form-group">
+      <label>Username</label>
+      <input class="form-control" type="text" name="username" placeholder=" Username" required>
+    </div>
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input class="form-control-file" type="file" id="image" name="image" accept="image/*" required>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input class="form-control" type="password" name="password" id = "psw1" placeholder="Password" required>
+    </div>
+        <div class="form-group">
+      <label>Confirm password</label>
+      <input class="form-control" type="password" name="passwordCheck" id = "psw2" placeholder="Password" required>
+    </div>
+    <div style="color:red; padding-bottom: 10px" id="error">
+    </div>
+    <button class="btn btn-success" type="submit">Register</button>
+  </form>
+
+
+    
+</div>
+
+<script type="text/javascript" src  = "scripts/validateForm.js"></script>
+
+
+
+
+
+<% include ../partials/footer %>
