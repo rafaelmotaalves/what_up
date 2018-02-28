@@ -4,7 +4,8 @@ function notLoggedIn(req, res, next){
 	if(!req.isAuthenticated()){
 		return next();
 	}
-	res.send("You already are logged in ");
+	req.flash("You are already logged in");
+	res.redirect("/");
 }
 
 module.exports = notLoggedIn;

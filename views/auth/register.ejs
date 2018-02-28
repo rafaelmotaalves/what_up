@@ -1,5 +1,16 @@
 <% include ../partials/header %>
 
+<div class="container" >
+  
+  <div class="alert alert-danger" id = "error" style="display: none;margin-top: 10px;">
+  </div>
+
+  
+</div>
+
+
+
+
 <div class="container" style="width: 30%; margin: 100px auto;" >
 
     <h1 style="text-align:center;">Sign Up</h1>
@@ -21,8 +32,6 @@
         <div class="form-group">
       <label>Confirm password</label>
       <input class="form-control" type="password" name="passwordCheck" id = "psw2" placeholder="Password" required>
-    </div>
-    <div style="color:red; padding-bottom: 10px" id="error">
     </div>
     <button class="btn btn-success" type="submit">Register</button>
   </form>

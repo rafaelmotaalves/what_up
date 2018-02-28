@@ -5,9 +5,11 @@ function validateForm(){
 
   if(password1.value !== password2.value){
     error.innerText = "Passwords dont match";
+    error.style.display = "block";
     return false;   
   }else if(password1.value.length < 3) {
-    error.innerText = "Password need to be at least 3 caracters long";
+    error.innerText = "Password needs to be at least 3 caracters long";
+    error.style.display = "block";
     return false;
   }
   return true;

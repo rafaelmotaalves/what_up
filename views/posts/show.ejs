@@ -2,7 +2,7 @@
 
 <div class="container">
 
-	<div class="card" style="margin: 2%">
+	<div class="card" style="margin: 2%;max-height: 1000px">
 
 			<div class="row">
 
@@ -13,19 +13,22 @@
 					
 					<div class="card-body">
 						<div class="row">
-							<div class="col-lg-8 card-title">
+							<div class="col-lg-7 card-title">
 								<a style = "color:black; text-decoration:none;" href="/users/<%=post.author.id%>"><strong><%=post.author.userName%> says...</strong></a>
 							</div>
 							<div class="col-lg-3  mb-2 text-muted">
 								<%=moment(post.createdAt).fromNow()%>
-
-								<div class="dropdown" style="margin-left:25px;display: inline;">
+							</div>
+							<div class="col-lg-1">
+								<div class="dropdown">
 									<button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									</button>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 										<% if(currentUser && currentUser._id.equals(post.author.id)){ %>
-											<a class="dropdown-item" href="#">Edit</a>
-											<a class="dropdown-item" href="#">Delete</a>
+											<a href="/posts/<%=post._id%>/edit" class = "dropdown-item">Edit</a>
+											<form action="/posts/<%=post._id%>?_method=DELETE" method = "POST">
+												<button type = "submit" class="dropdown-item">Delete</button>
+											</form>
 										<% } else { %>
 											<a class="dropdown-item" href="/">Report</a>
 									 	<% } %>
@@ -34,14 +37,7 @@
 							</div>
 						</div>
 						<div class="card-text">
-
-
-							<% if(post.text.length > 500) { %>
-								<%= post.text.substr(0,500) %>...
-								<a href="/posts/<%=post._id%>">read more.</a>
-							<% } else { %>
 								<%= post.text %>
-							<% } %>
  						</div>
 
 							<div class="row">
@@ -92,17 +88,7 @@
 											
 
 									</div>
-								</div>
-								<div class="col-lg-3">
-
-									<a href = "/posts/<%=post._id%>" class="btn btn-info" >
-										<i class="far fa-comment"></i>
-									</a>
-									<button class="btn btn-outline-dark disabled">
-									    <strong><%= post.comments.length %></strong>
-									</button>
-									
-								</div>				
+								</div>			
 							</div>
 
 
@@ -139,7 +125,7 @@
 
 		<div class="row" style= "padding: 1Opx">
 				
-			<div class="col-lg-10">
+			<div class="col-lg-7">
 				
 			    <strong><a><%= comment.author.username%></a></strong>
 			    <div class="text">
@@ -148,9 +134,12 @@
 
 			</div>
 
-			<div class="col-lg-2">
+			<div class="col-lg-3">
 		      <div style="display: inline;" class="date"><%= moment(comment.createdAt).fromNow()%></div>
-		      <div class="dropdown" style="margin-left:10px;display: inline;">
+			</div>
+
+			<div class="col-lg-1">
+				<div class="dropdown">
 					<button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					</button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -161,7 +150,7 @@
 							<a class="dropdown-item" href="/">Report</a>
 						<% } %>
 					</div>
-				</div>				
+				</div>
 			</div>
 
 			

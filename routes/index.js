@@ -6,6 +6,7 @@ var express  = require("express"),
 	multer   = require('multer'),
 	User     = require("../models/users");
 
+require('dotenv').config();
 
 router.get("/", function(req, res){
 	res.redirect("posts");
@@ -35,7 +36,7 @@ var cloudinary = require('cloudinary');
 cloudinary.config({ 
   cloud_name: 'dw2nxlm3b', 
   api_key: process.env.API_KEY, 
-  api_secret: process.env.API_SECRET
+  api_secret:process.env.API_SECRET
 });
 
 //auth routes
@@ -50,9 +51,11 @@ router.post("/register", notLoggedIn ,upload.single('image'), function(req, res)
 	    User.register(newUser, req.body.password, function(err, user){
 	        if(err){
 	            console.log(err);
-	            return res.render('register');
+	            req.flash("error" , err.message);
+	            return res.redirect('register');
 	        }
 	        passport.authenticate("local")(req, res, function(){
+	        	req.flash("Helo, " + req.body.username + "! You successfully signed up to WHAT_UP!");
 	           res.redirect("/posts");
 	        });
 	    });

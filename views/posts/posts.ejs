@@ -36,19 +36,22 @@
 					
 					<div class="card-body">
 						<div class="row">
-							<div class="col-lg-8 card-title">
+							<div class="col-lg-7 card-title">
 								<a style = "color:black; text-decoration:none;" href="/users/<%=post.author.id%>"><strong><%=post.author.userName%> says...</strong></a>
 							</div>
 							<div class="col-lg-3  mb-2 text-muted">
 								<%=moment(post.createdAt).fromNow()%>
-
-								<div class="dropdown" style="margin-left:25px;display: inline;">
+							</div>
+							<div class="col-lg-1">
+								<div class="dropdown">
 									<button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									</button>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 										<% if(currentUser && currentUser._id.equals(post.author.id)){ %>
-											<a class="dropdown-item" href="#">Edit</a>
-											<a class="dropdown-item" href="#">Delete</a>
+											<a href="/posts/<%=post._id%>/edit" class = "dropdown-item">Edit</a>
+											<form action="/posts/<%=post._id%>?_method=DELETE" method = "POST">
+												<button type = "submit" class="dropdown-item">Delete</button>
+											</form>
 										<% } else { %>
 											<a class="dropdown-item" href="/">Report</a>
 									 	<% } %>
@@ -56,6 +59,7 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="card-text">
 
 
@@ -66,7 +70,6 @@
 								<%= post.text %>
 							<% } %>
  						</div>
-
 							<div class="row">
 								<div class="col-lg-9">					
 									<div class="btn-group">
