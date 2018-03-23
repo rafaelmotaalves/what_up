@@ -45,6 +45,8 @@ app.use(express.static(__dirname + "/public"));
 
 app.locals.moment = require('moment');
 
+// setting flash
+
 app.use(flash());
 
 // passport configuration
@@ -79,6 +81,6 @@ app.use("/posts", postsRoutes);
 app.use("/users", usersRoutes);
 app.use("/", commentsRoutes);
 
-app.listen(3000, function(){
+app.listen(process.env.PORT , function(){
 	console.log("app running...");
 });

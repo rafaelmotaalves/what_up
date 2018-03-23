@@ -144,8 +144,10 @@
 					</button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 						<% if(currentUser && ( currentUser._id.equals(comment.author.id) ||currentUser._id.equals(post.author.id))){ %>
-							<a class="dropdown-item" href="#">Edit</a>
-							<a class="dropdown-item" href="#">Delete</a>
+							<a class="dropdown-item" href="/posts/<%=post._id%>/<%=comment._id%>/edit">Edit</a>
+							<form action="/posts/<%=post._id%>/<%=comment._id%>?_method=DELETE" method = "POST" >
+								<button type="submit" class="dropdown-item" href="#">Delete</button>
+							</form>
 						<% } else { %>
 							<a class="dropdown-item" href="/">Report</a>
 						<% } %>

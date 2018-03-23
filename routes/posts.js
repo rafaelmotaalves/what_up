@@ -28,6 +28,12 @@ router.post("/", isLoggedIn ,function(req, res){
 		userImage: req.user.img
 	};
 
+	if(req.body.post.text === ""){
+		req.flash("error","You need to write something in your post");
+		res.redirect("/posts");
+		return;
+	}
+
 	Post.create(req.body.post, function(err, post){
 		if(err){
 			res.redirect("back");
@@ -59,7 +65,6 @@ router.put("/:id/vote/:in",isLoggedIn, function(req, res){
 				if(err){
 					console.log(err);
 				}else{
-					console.log(user);
 					// checking if is a upvote or a downvote
 					if(req.params.in == "up"){
 						// checking if the current logged in user already upvoted in this post
